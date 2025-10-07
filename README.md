@@ -30,6 +30,6 @@ Also please have look at the existing discussions. We might have a question or t
 
 ## Timeline
 
-We are looking at including the first version of this in Mastodon 4.6. Development is slated to start in November 2026 so it would be ideal to leave feedback before then.
+We are looking at including the first version of this in Mastodon 4.6. Development is slated to start in November 2025 so it would be ideal to leave feedback before then.
 
 Thank you all very much.
