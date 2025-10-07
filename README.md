@@ -10,7 +10,7 @@ Turns out, this is not very simple though, because we think we cannot compromise
 
 * Starter Packs must be federated. When Alice creates a Starter Pack on her server a.com, Bob on his server b.com should eventually be able to see and interact with Alice's Starter Pack.
 * It must be possible to opt-out of being featured in a Starter Pack and also to remove yourself from a Starter Pack at any later point in time. This has to work across server boundaries.
-* It must be possible to report Starter Packs in the same way as you can report Posts, e.g. for violation of server rules.
+* It must be possible to report Starter Packs in the same way that you can report Posts, e.g. for violation of server rules.
 
 This is why we spent some time thinking about how to federate all of this. The result is a draft for a new FEP.
 
@@ -18,7 +18,7 @@ We welcome feedback on the FEP draft as well as more general feedback and discus
 
 ## FEP draft
 
-You can find the FEP draft in this pull request: #1
+You can find the FEP draft in [this Pull Request](https://github.com/mastodon/featured_collections/pull/1). 
 
 Please feel free to add your comments to the PR.
 
