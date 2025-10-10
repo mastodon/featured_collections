@@ -284,7 +284,12 @@ Example `Delete` activity:
   "type": "Delete",
   "to": "https://fedi.example.com/users/alice",
   "actor": "https://other.example.com/users/bob",
-  "object": "https://other.example.com/users/bob/stamps/1024"
+  "object": {
+    "id": "https://other.example.com/users/bob/stamps/1024",
+    "type": "FeatureAuthorization",
+    "interactingObject": "https://fedi.example.com/users/alice/featured/23",
+    "interactionTarget": "https://other.example.com/users/bob"
+  }
 }
 ```
 
