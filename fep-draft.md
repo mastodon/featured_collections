@@ -44,6 +44,7 @@ In addition, a `FeaturedCollection` MAY have the following property:
 
 * `sensitive`: Set to `true` if either description of the collection or individual items could be seen as being offensive or otherwise problematic
 * `updated`: The date and time at which the object was updated *if* it was updated after initial creation
+* `discoverable`: If present and set to `false` this signals that this collection is not meant to be discovered by search or similar means and MUST NOT be shown to new users during onboarding.
 * `icon`: An image that represents the collection. This SHOULD be a square image that can be used in list views and similar alongside the `name`.
 * `image`: A larger image that can be used as a page header or as part of a link preview. Similar considerations apply as with OpenGraph images.
 
