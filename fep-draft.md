@@ -44,11 +44,16 @@ In addition, a `FeaturedCollection` MAY have the following property:
 
 * `sensitive`: Set to `true` if either description of the collection or individual items could be seen as being offensive or otherwise problematic
 * `updated`: The date and time at which the object was updated *if* it was updated after initial creation
-* `discoverable`: If present and set to `false` this signals that this collection is not meant to be discovered by search or similar means and MUST NOT be shown to new users during onboarding.
+* `tag`: This can be used to include a list of `Hashtag` objects that help categorize this collection. If the `summary` includes any (microsyntax) hashtags, their corresponding `Hashtag` objects SHOULD be included here.
 * `icon`: An image that represents the collection. This SHOULD be a square image that can be used in list views and similar alongside the `name`.
 * `image`: A larger image that can be used as a page header or as part of a link preview. Similar considerations apply as with OpenGraph images.
 
 It is worth emphasizing that both `icon` and `image` are separately optional. Providers of `FeaturedCollection`s may choose to supply both, only one, or neither. Applications displaying `FeaturedCollection`s may also elect to show or omit either or both images, depending on what makes sense in their UI design and the specific situation. This FEP considers these images decorative in nature, meaning they should not be the only source of important information.
+
+This FEP also introduces two new properties that MAY optionally be used in a `FeaturedCollection`:
+
+* `discoverable`: If present and set to `false` this signals that this collection is not meant to be discovered by search or similar means and MUST NOT be shown to new users during onboarding.
+* `topic`: A single `Hashtag` object that represents the main topic or category of this collection.
 
 The individual items in the `FeaturedCollection` are of the type `FeaturedItem` which is a subtype of `Object`. A `FeaturedItem` MUST have the following property:
 
