@@ -32,7 +32,7 @@ Featured collections are represented by a new object type, `FeaturedCollection`.
 A `FeaturedCollection` MUST have the following properties:
 
 * `type`: The type of object, MUST be `FeaturedCollection`
-* `id`: IRI that uniquely identifies this object
+* `id`: URI that uniquely identifies this object
 * `name`: The name of the collection
 * `summary`: A description of the collection
 * `attributedTo`: The actor responsible for this collection
@@ -57,7 +57,7 @@ This FEP also introduces two new properties that MAY optionally be used in a `Fe
 
 The individual items in the `FeaturedCollection` are of the type `FeaturedItem` which is a subtype of `Object`. A `FeaturedItem` MUST have the following property:
 
-* `featuredObject`: The `id` (IRI) of the actual object that is being featured
+* `featuredObject`: The `id` (URI) of the actual object that is being featured
 * `featuredObjectType`: The `type` of the object that is being featured
 
 In the case that the featured object is an actor it MUST also include the following property:
@@ -254,7 +254,7 @@ The `FeatureAuthorization` obtained through the `Accept` activity as described i
 A `FeatureAuthorization` MUST include the following properties:
 
 * `type`: The type of object, MUST be `FeatureAuthorization`
-* `id`: IRI that uniquely identifies this object
+* `id`: URI that uniquely identifies this object
 * `interactingObject`: The featured collection 
 * `interactionTarget`: The actor that was featured
  
