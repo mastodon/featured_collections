@@ -118,15 +118,15 @@ Featured collections are created by individual actors. As such they SHOULD becom
 
 ## Federating Changes and Opportunistic Updating
 
-When a user creates a new `FeaturedCollection`, this is then added to their actor's `featuredCollections` collection, an operation that can be federated as an `Add` activity to the user's followers.
+When a user creates a new `FeaturedCollection`, this is then added to their actor's `featuredCollections` collection, an operation that can be federated as an `Add` activity.
 
-Similarly, when a `FeaturedItem` is added to a `FeaturedCollection`, this can also be distributed in the form of an `Add` activity to all followers of the user that owns the collection and all actors that are already part of the collection.
+Similarly, when a `FeaturedItem` is added to a `FeaturedCollection`, this can also be distributed in the form of an `Add` activity.
 
 `Remove` activities can be sent in case of removal from one of the mentioned collections.
 
-This solves the distribution of featured collections and updates to them, but only to followers of their curator plus members of the collection.
+A `FeaturedCollection` can be discovered by different means, which means a server can never know exactly who knows about it. When addressing the aforementioned activities a server SHOULD thus use a heuristic to determine who to send them to. A reasonable heuristic could be to send all changes to an actor's `featuredCollections` collection to the actor's followers. Additionally all changes to an individual `FeaturedCollection` could also go to all actors in that collection (including the one that was just removed in case of `Remove`).
 
-Featured collections will eventually end up on servers without any followers of that original curator, though. This means that implementations SHOULD try to re-fetch these collections from time to time to make sure the content is still current. 
+No such heuristic will ever be perfect though. Servers who know about a `FeaturedCollection` might still not receive relevant updates. This means that implementations SHOULD try to re-fetch these collections from time to time to make sure the content is still current. 
 
 ## Interaction Policies for Curated Collections
 
