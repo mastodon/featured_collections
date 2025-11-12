@@ -114,11 +114,11 @@ Very large lists of items do not make much sense from a UX perspective. E.g. not
 
 ## Featured Collections on Actors
 
-Featured collections are created by individual actors. As such they SHOULD become part of the actor's `featured` collection. This way other servers on the fediverse can easily discover them.
+Featured collections are created by individual actors. As such they SHOULD become part of a new collection property on the actor, `featuredCollections`. This way other servers on the fediverse can easily discover them.
 
 ## Federating Changes and Opportunistic Updating
 
-When a user creates a new `FeaturedCollection`, this is then added to their actor's `featured` collection, an operation that can be federated as an `Add` activity to the user's followers.
+When a user creates a new `FeaturedCollection`, this is then added to their actor's `featuredCollections` collection, an operation that can be federated as an `Add` activity to the user's followers.
 
 Similarly, when a `FeaturedItem` is added to a `FeaturedCollection`, this can also be distributed in the form of an `Add` activity to all followers of the user that owns the collection and all actors that are already part of the collection.
 
