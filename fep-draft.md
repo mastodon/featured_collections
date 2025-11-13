@@ -76,10 +76,15 @@ Example featured collection:
   ],
   "type": "FeaturedCollection",
   "id": "https://fedi.example.com/users/alice/featured/23",
-  "name": "Most interesting posters",
-  "summary": "A selection of accounts that I follow because of their interesting content.",
+  "name": "Cute cats",
+  "summary": "A selection of accounts that I follow because of their interesting cat content.",
   "attributedTo": "https://fedi.example.com/users/alice",
   "sensitive": false,
+  "discoverable": true,
+  "topic": {
+    "type": "Hashtag",
+    "name": "#cats"
+  },
   "icon": {
     "type": "Image",
     "url": {
