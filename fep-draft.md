@@ -1,11 +1,11 @@
 ---
-slug: "xxxx"
+slug: "7aa9"
 authors: David Roetzel <david@joinmastodon.org> 
 status: DRAFT
-dateReceived: 1970-01-01
-discussionsTo: https://forum.example/topics/xxxx
+dateReceived:
+discussionsTo: https://github.com/mastodon/featured_collections/pull/1
 ---
-# FEP-xxxx: Consent-respecting Featured Collections
+# FEP-7aa9: Featuring recommendations using a dedicated collection
 
 ## Summary
 
@@ -23,46 +23,51 @@ Last but not least, "Starter Packs" need to be handled with care as they can be 
 
 GoToSocial has pioneered "Interaction Policies" to model a user's preferences for different kinds of interactions. And in [FEP-044f] Mastodon has expanded on this idea with the addition of verifiable "stamps" to prove user's consent.
 
-This FEP takes those concepts and applies them to a user-curated and federated collection of actors (or any kind of object really) called `FeaturedCollection`. The name was chosen because some platforms already announced they do not plan to use the term "Starter Pack" and to illustrate that other uses are possible.
+This FEP takes those concepts and applies them to a user-curated and federated collection of actors (or any kind of object really) called `FeaturedCollection`. The name was chosen because some platforms already announced they do not plan to use the term "Starter Pack" and to illustrate that other uses, i.e. featuring other objects than just actors, are possible.
 
 ## Representation of Featured Collections
 
-Featured collections are represented by a new object type, `FeaturedCollection`. `FeaturedCollection` is a subtype of `OrderedCollection` and inherits all of its properties.
+Featured collections are represented by a new object type, `FeaturedCollection` (`https://w3id.org/fep/7aa9/#FeaturedCollection`). `FeaturedCollection` is a subtype of `OrderedCollection` and inherits all of its properties.
 
 A `FeaturedCollection` MUST have the following properties:
 
-* `type`: The type of object, MUST be `FeaturedCollection`
+* `type`: The type of object, MUST include `FeaturedCollection`
 * `id`: URI that uniquely identifies this object
 * `name`: The name of the collection
-* `summary`: A description of the collection
 * `attributedTo`: The actor responsible for this collection
-* `published`: The date and time at which the object was published
-* `totalItems`: The number of items in this collection
 * `orderedItems`: The list of items in this collection. Since this is a kind of `OrderedCollection` it MAY alternatively use pagination instead. This should only be used for larger collections if possible. Please see the note about limiting the number of entries below and the [note about paginated ordered collections](https://www.w3.org/TR/activitystreams-core/#h-paging) in [ActivityStreams].
 
 In addition, a `FeaturedCollection` MAY have the following property:
 
+* `summary`: A description of the collection
 * `sensitive`: Set to `true` if either description of the collection or individual items could be seen as being offensive or otherwise problematic
+* `published`: The date and time at which the object was published
 * `updated`: The date and time at which the object was updated *if* it was updated after initial creation
-* `tag`: This can be used to include a list of `Hashtag` objects that help categorize this collection. If the `summary` includes any (microsyntax) hashtags, their corresponding `Hashtag` objects SHOULD be included here.
-* `icon`: An image that represents the collection. This SHOULD be a square image that can be used in list views and similar alongside the `name`.
+* `totalItems`: The number of items in this collection
+* `tag`: If the `summary` includes any (microsyntax) hashtags, their corresponding `Hashtag` objects SHOULD be included here.
+* `url`: A link to a representation of the collection, especially useful if the canonical, user-facing URL of a collection is different from its `id`
+* `icon`: An image that represents the collection. This MUST be a square image that can be used in list views and similar alongside the `name`.
 * `image`: A larger image that can be used as a page header or as part of a link preview. Similar considerations apply as with OpenGraph images.
 
 It is worth emphasizing that both `icon` and `image` are separately optional. Providers of `FeaturedCollection`s may choose to supply both, only one, or neither. Applications displaying `FeaturedCollection`s may also elect to show or omit either or both images, depending on what makes sense in their UI design and the specific situation. This FEP considers these images decorative in nature, meaning they should not be the only source of important information.
 
 This FEP also introduces two new properties that MAY optionally be used in a `FeaturedCollection`:
 
-* `discoverable`: If present and set to `false` this signals that this collection is not meant to be discovered by search or similar means and MUST NOT be shown to new users during onboarding.
-* `topic`: A single `Hashtag` object that represents the main topic or category of this collection.
+* `discoverable` (`https://w3id.org/fep/7aa9/#discoverable`): If present and set to `false` this signals that this collection is not meant to be discovered by search or similar means and MUST NOT be shown to new users during onboarding.
+* `topic` (`https://w3id.org/fep/7aa9/#topic`): A single `Hashtag` object that represents the main topic or category of this collection.
 
-The individual items in the `FeaturedCollection` are of the type `FeaturedItem` which is a subtype of `Object`. A `FeaturedItem` MUST have the following property:
+The individual items in the `FeaturedCollection` are of the type `FeaturedItem` (`https://w3id.org/fep/7aa9/#FeaturedItem`) which is a subtype of `Object`. A `FeaturedItem` MUST have the following property:
 
-* `featuredObject`: The `id` (URI) of the actual object that is being featured
-* `featuredObjectType`: The `type` of the object that is being featured
+* `featuredObject` (`https://w3id.org/fep/7aa9/#featuredObject`): The `id` (URI) of the actual object that is being featured
+* `featuredObjectType` (`https://w3id.org/fep/7aa9/#featuredObjectType`): The `type` of the object that is being featured
 
 In the case that the featured object is an actor it MUST also include the following property:
 
-* `featureAuthorization`: URI of the approval object (see section below for details)
+* `featureAuthorization` (`https://w3id.org/fep/7aa9/#featureAuthorization`): URI of the approval object (see section below for details)
+
+In addition, a `FeaturedItem` MAY have the following property:
+
+* `published`: The date and time at which the object was added to the collection
 
 Please note that initially the featured objects are expected to be actors. But the specification is intentionally open to also include other object types. The most obvious one that platforms might want to add in the future is `Hashtag`.
 
@@ -72,7 +77,7 @@ Example featured collection:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/feps/xxxx"
+    "https://w3id.org/fep/7aa9"
   ],
   "type": "FeaturedCollection",
   "id": "https://fedi.example.com/users/alice/featured/23",
@@ -100,14 +105,16 @@ Example featured collection:
       "type": "FeaturedItem",
       "featuredObject": "https://fedi.example.com/users/jennifer",
       "featuredObjectType": "Person",
-      "featureAuthorization": "https://fedi.example.com/users/jennifer/stamps/12"
+      "featureAuthorization": "https://fedi.example.com/users/jennifer/stamps/12",
+      "published": "2025-08-14T12:13:22Z"
     },
     {
       "id": "https://fedi.example.com/users/alice/featured/23/items/2",
       "type": "FeaturedItem",
       "featuredObject": "https://other.example.com/users/jim",
       "featuredObjectType": "Person",
-      "featureAuthorization": "https://other.example.com/users/jim/stamps/21"
+      "featureAuthorization": "https://other.example.com/users/jim/stamps/21",
+      "published": "2025-08-14T12:14:51Z"
     }
   ],
   "published": "2025-08-14T12:12:12Z",
@@ -144,7 +151,7 @@ Abbreviated example actor:
   "@context": [
     "https://www.w3.org/ns/activitystreams",
     "https://gotosocial.org/ns",
-    "https://w3id.org/feps/xxxx"
+    "https://w3id.org/fep/7aa9"
   ],
   "id": "https://example.com/users/alice",
   "type": "Person",
@@ -191,7 +198,7 @@ Example `FeatureRequest`:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/feps/xxxx"
+    "https://w3id.org/fep/7aa9"
   ],
   "id": "https://fedi.example.com/users/alice/featured/23/requests/2",
   "type": "FeatureRequest",
@@ -241,12 +248,14 @@ Example `FeaturedItem` resulting from the `Accept` above:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/feps/xxxx"
+    "https://w3id.org/fep/7aa9"
   ],
   "id": "https://fedi.example.com/users/alice/featured/23/items/2",
   "type": "FeaturedItem",
   "object": "https://other.example.com/users/bob",
-  "featureAuthorization": "https://other.example.com/users/bob/stamps/1024"
+  "featuredObjectType": "Person",
+  "featureAuthorization": "https://other.example.com/users/bob/stamps/1024",
+  "published": "2025-08-14T12:13:22Z"
 }
 ```
 
@@ -270,7 +279,7 @@ Example `FeatureAuthorization`:
   "@context": [
     "https://www.w3.org/ns/activitystreams",
     "https://gotosocial.org/ns",
-    "https://w3id.org/feps/xxxx"
+    "https://w3id.org/fep/7aa9"
   ],
   "id": "https://other.example.com/users/bob/stamps/1024",
   "type": "FeatureAuthorization",
