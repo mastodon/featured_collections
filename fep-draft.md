@@ -37,7 +37,7 @@ A `FeaturedCollection` MUST have the following properties:
 * `attributedTo`: The actor responsible for this collection
 * `orderedItems`: The list of items in this collection. Since this is a kind of `OrderedCollection` it MAY alternatively use pagination instead. This should only be used for larger collections if possible. Please see the note about limiting the number of entries below and the [note about paginated ordered collections](https://www.w3.org/TR/activitystreams-core/#h-paging) in [ActivityStreams].
 
-In addition, a `FeaturedCollection` MAY have the following property:
+In addition, a `FeaturedCollection` MAY have the following properties:
 
 * `summary`: A description of the collection
 * `sensitive`: Set to `true` if either description of the collection or individual items could be seen as being offensive or otherwise problematic
