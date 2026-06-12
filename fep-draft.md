@@ -2,7 +2,7 @@
 slug: "7aa9"
 authors: David Roetzel <david@joinmastodon.org> 
 status: DRAFT
-dateReceived:
+dateReceived: 2026-06-12
 discussionsTo: https://github.com/mastodon/featured_collections/pull/1
 ---
 # FEP-7aa9: Featuring recommendations using a dedicated collection
