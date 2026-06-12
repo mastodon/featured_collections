@@ -358,6 +358,11 @@ At the other end of the spectrum lie implementations that offer their users full
 
 Of course there is a lot of middle ground here. A reasonable approach that sits somewhat in the middle could use automatic approval only and offer users a single setting for their preference with a handful of options to chose from. To make up for the lack of manual approval, removing oneself from a featured collection could be made very easy.
 
+## Implementations
+
+* Loops
+* Mastodon
+
 ## References
 
 - Christine Lemmer-Webber, Jessica Tallon, Erin Shepherd, Amy Guy, Evan Prodromou, [ActivityPub], 2018
