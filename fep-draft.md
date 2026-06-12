@@ -27,7 +27,7 @@ This FEP takes those concepts and applies them to a user-curated and federated c
 
 ## Representation of Featured Collections
 
-Featured collections are represented by a new object type, `FeaturedCollection` (`https://w3id.org/fep/7aa9/#FeaturedCollection`). `FeaturedCollection` is a subtype of `OrderedCollection` and inherits all of its properties.
+Featured collections are represented by a new object type, `FeaturedCollection` (`https://w3id.org/fep/7aa9#FeaturedCollection`). `FeaturedCollection` is a subtype of `OrderedCollection` and inherits all of its properties.
 
 A `FeaturedCollection` MUST have the following properties:
 
@@ -41,6 +41,7 @@ In addition, a `FeaturedCollection` MAY have the following properties:
 
 * `summary`: A description of the collection
 * `sensitive`: Set to `true` if either description of the collection or individual items could be seen as being offensive or otherwise problematic
+* `discoverable` (`https://joinmastodon.org/ns#discoverable`): If present and set to `false` this signals that this collection is not meant to be discovered by search or similar means and MUST NOT be shown to new users during onboarding.
 * `published`: The date and time at which the object was published
 * `updated`: The date and time at which the object was updated *if* it was updated after initial creation
 * `totalItems`: The number of items in this collection
@@ -51,19 +52,17 @@ In addition, a `FeaturedCollection` MAY have the following properties:
 
 It is worth emphasizing that both `icon` and `image` are separately optional. Providers of `FeaturedCollection`s may choose to supply both, only one, or neither. Applications displaying `FeaturedCollection`s may also elect to show or omit either or both images, depending on what makes sense in their UI design and the specific situation. This FEP considers these images decorative in nature, meaning they should not be the only source of important information.
 
-This FEP also introduces two new properties that MAY optionally be used in a `FeaturedCollection`:
+This FEP also introduces a new property that MAY optionally be used in a `FeaturedCollection`:
 
-* `discoverable` (`https://w3id.org/fep/7aa9/#discoverable`): If present and set to `false` this signals that this collection is not meant to be discovered by search or similar means and MUST NOT be shown to new users during onboarding.
-* `topic` (`https://w3id.org/fep/7aa9/#topic`): A single `Hashtag` object that represents the main topic or category of this collection.
+* `topic` (`https://w3id.org/fep/7aa9#topic`): A single `Hashtag` object that represents the main topic or category of this collection.
 
-The individual items in the `FeaturedCollection` are of the type `FeaturedItem` (`https://w3id.org/fep/7aa9/#FeaturedItem`) which is a subtype of `Object`. A `FeaturedItem` MUST have the following property:
+The individual items in the `FeaturedCollection` are of the type `FeaturedItem` (`https://w3id.org/fep/7aa9#FeaturedItem`) which is a subtype of `Object`. A `FeaturedItem` MUST have the following property:
 
-* `featuredObject` (`https://w3id.org/fep/7aa9/#featuredObject`): The `id` (URI) of the actual object that is being featured
-* `featuredObjectType` (`https://w3id.org/fep/7aa9/#featuredObjectType`): The `type` of the object that is being featured
+* `featuredObject` (`https://w3id.org/fep/7aa9#featuredObject`): The `id` (URI) of the actual object that is being featured
 
 In the case that the featured object is an actor it MUST also include the following property:
 
-* `featureAuthorization` (`https://w3id.org/fep/7aa9/#featureAuthorization`): URI of the approval object (see section below for details)
+* `featureAuthorization` (`https://w3id.org/fep/7aa9#featureAuthorization`): URI of the approval object (see section below for details)
 
 In addition, a `FeaturedItem` MAY have the following property:
 
@@ -77,7 +76,12 @@ Example featured collection:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/fep/7aa9"
+    "https://w3id.org/fep/7aa9",
+    {
+      "Hashtag": "as:Hashtag",
+      "sensitive": "as:sensitive",
+      "discoverable": "https://joinmastodon.org/ns#discoverable"
+    }
   ],
   "type": "FeaturedCollection",
   "id": "https://fedi.example.com/users/alice/featured/23",
@@ -123,6 +127,8 @@ Example featured collection:
 ```
 
 Very large lists of items do not make much sense from a UX perspective. E.g. not many users will want to blindly follow a couple of hundred of unknown accounts. And forcing remote servers to potentially fetch a lot of unknown actors is a vector for Denial of Service (DOS). That is why fediverse software SHOULD both impose a limit to the number of items that can be added to a featured collection and that they will handle when dealing with remote collections. The proposed maximum of items is 150 but implementations MAY have different limits.
+
+All properties mentioned are expected to have at most one value unless stated otherwise.
 
 ## Featured Collections on Actors
 
